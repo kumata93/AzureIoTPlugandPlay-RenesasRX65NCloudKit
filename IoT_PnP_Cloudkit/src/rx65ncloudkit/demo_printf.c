@@ -21,9 +21,16 @@ TX_SEMAPHORE demo_printf_semaphore;
 
 void demo_printf_init(void)
 {
-    tx_mutex_create(&demo_printf_mutex, "Demo printf mutex", TX_INHERIT);
+	UINT  status;
+	status = tx_mutex_create(&demo_printf_mutex, "Demo printf mutex", TX_INHERIT);
 
-    tx_semaphore_create(&demo_printf_semaphore, "Demo printf semaphore", 0u);
+	if(status != TX_SUCCESS )
+		while(1);
+
+	status = tx_semaphore_create(&demo_printf_semaphore, "Demo printf semaphore", 0u);
+
+	if(status != TX_SUCCESS )
+		while(1);
 }
 
 void demo_printf(char *format, ...)

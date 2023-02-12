@@ -325,7 +325,7 @@ UINT  status;
     status = tx_thread_create(&sample_helper_thread, "Demo Thread",
                               sample_helper_thread_entry, 0,
                               sample_helper_thread_stack, SAMPLE_HELPER_STACK_SIZE,
-                              SAMPLE_HELPER_THREAD_PRIORITY, SAMPLE_HELPER_THREAD_PRIORITY,
+                              SAMPLE_HELPER_THREAD_PRIORITY+1, SAMPLE_HELPER_THREAD_PRIORITY+1,
                               TX_NO_TIME_SLICE, TX_AUTO_START);
 
     /* Check status.  */

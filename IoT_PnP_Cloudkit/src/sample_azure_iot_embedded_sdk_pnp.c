@@ -20,6 +20,7 @@
 #include "nx_azure_iot_cert.h"
 #include "nx_azure_iot_ciphersuites.h"
 #include "sample_config.h"
+#include "sample_sensor.h"
 
 /* Define sample wait option.  */
 #ifndef SAMPLE_WAIT_OPTION
@@ -43,7 +44,7 @@
 #define SAMPLE_COMMAND_SUCCESS_STATUS                                   (200)
 #define SAMPLE_COMMAND_ERROR_STATUS                                     (500)
 
-#define SAMPLE_PNP_MODEL_ID                                             "dtmi:com:example:Thermostat;3"
+#define SAMPLE_PNP_MODEL_ID                                             "dtmi:com:example:rxcloudkitsensor;1"
 #define SAMPLE_PNP_DPS_PAYLOAD                                          "{\"modelId\":\"" SAMPLE_PNP_MODEL_ID "\"}"
 
 /* Generally, IoTHub Client and DPS Client do not run at the same time, user can use union as below to
@@ -107,7 +108,17 @@ static volatile UINT sample_connection_status = NX_AZURE_IOT_NOT_INITIALIZED;
 static volatile ULONG sample_periodic_counter = 0;
 
 /* Telemetry.  */
-static const CHAR telemetry_name[] = "temperature";
+static const CHAR telemetry_temp_name[] = "temperature";
+static const CHAR telemetry_humid[] = "humidity";
+static const CHAR telemetry_pressure[] = "pressure";
+static const CHAR telemetry_gas [] = "gasResistance";
+static const CHAR telemetry_accx [] = "accelerometerX";
+static const CHAR telemetry_accy [] = "accelerometerY";
+static const CHAR telemetry_accz [] = "accelerometerZ";
+static const CHAR telemetry_gyrx [] = "gyroscopeX";
+static const CHAR telemetry_gyry [] = "gyroscopeY";
+static const CHAR telemetry_gyrz [] = "gyroscopeZ";
+static const CHAR telemetry_light [] = "illuminance";
 
 /* Device command.  */
 static const CHAR report_command_name[] = "getMaxMinReport";
@@ -133,7 +144,7 @@ static int32_t device_temperature_avg_count = 1;
 static double device_max_temp = SAMPLE_DEAFULT_START_TEMP_CELSIUS;
 static double device_min_temp = SAMPLE_DEAFULT_START_TEMP_CELSIUS;
 static double device_avg_temp = SAMPLE_DEAFULT_START_TEMP_CELSIUS;
-static UCHAR scratch_buffer[256];
+static UCHAR scratch_buffer[256*2];
 
 /* Include the connection monitor function from sample_azure_iot_embedded_sdk_connect.c.  */
 extern VOID sample_connection_monitor(NX_IP *ip_ptr, NX_AZURE_IOT_HUB_CLIENT *iothub_client_ptr, UINT connection_status,
@@ -781,6 +792,7 @@ UINT status = 0;
 NX_PACKET *packet_ptr;
 NX_AZURE_IOT_JSON_WRITER json_writer;
 UINT buffer_length;
+SAMPLE_SENSOR sample_sensor_data;
 
     if (sample_connection_status != NX_SUCCESS)
     {
@@ -790,7 +802,7 @@ UINT buffer_length;
     /* Create a telemetry message packet.  */
     if ((status = nx_azure_iot_hub_client_telemetry_message_create(hub_client_ptr,
                                                                    &packet_ptr,
-                                                                   NX_WAIT_FOREVER)))
+																   SAMPLE_WAIT_OPTION)))
     {
         printf("Telemetry message create failed!: error code = 0x%08x\r\n", status);
         return;
@@ -804,18 +816,68 @@ UINT buffer_length;
         return;
     }
 
-    if (nx_azure_iot_json_writer_append_begin_object(&json_writer) ||
-        nx_azure_iot_json_writer_append_property_with_double_value(&json_writer,
-                                                                   (UCHAR *)telemetry_name,
-                                                                   sizeof(telemetry_name) - 1,
-                                                                   current_device_temp,
-                                                                   DOUBLE_DECIMAL_PLACE_DIGITS) ||
+    sample_get_sensor_data(&sample_sensor_data);
+
+	if (nx_azure_iot_json_writer_append_begin_object(&json_writer)
+			|| nx_azure_iot_json_writer_append_property_with_double_value(
+					&json_writer, (UCHAR*) telemetry_temp_name,
+					sizeof(telemetry_temp_name) - 1, (double)sample_sensor_data.enviro_data.temperature,
+					DOUBLE_DECIMAL_PLACE_DIGITS)
+			||
+			nx_azure_iot_json_writer_append_property_with_double_value(
+					&json_writer, (UCHAR*) telemetry_humid,
+					sizeof(telemetry_humid) - 1, sample_sensor_data.enviro_data.humidity,
+					DOUBLE_DECIMAL_PLACE_DIGITS)
+			||
+			nx_azure_iot_json_writer_append_property_with_double_value(
+					&json_writer, (UCHAR*) telemetry_pressure,
+					sizeof(telemetry_pressure) - 1, sample_sensor_data.enviro_data.pressure,
+					DOUBLE_DECIMAL_PLACE_DIGITS)
+			|| nx_azure_iot_json_writer_append_property_with_double_value(
+					&json_writer, (UCHAR*) telemetry_gas,
+					sizeof(telemetry_gas) - 1, sample_sensor_data.enviro_data.gas_resistance,
+					DOUBLE_DECIMAL_PLACE_DIGITS) ||
+			        nx_azure_iot_json_writer_append_property_with_double_value(
+					&json_writer, (UCHAR*) telemetry_accx,
+					sizeof(telemetry_accx) - 1, sample_sensor_data.accel_data.x,
+					DOUBLE_DECIMAL_PLACE_DIGITS)
+			||
+ 				nx_azure_iot_json_writer_append_property_with_double_value(
+					&json_writer, (UCHAR*) telemetry_accy,
+					sizeof(telemetry_accy) - 1, sample_sensor_data.accel_data.y,
+					DOUBLE_DECIMAL_PLACE_DIGITS)
+			||
+				nx_azure_iot_json_writer_append_property_with_double_value(
+					&json_writer, (UCHAR*) telemetry_accz,
+					sizeof(telemetry_accz) - 1, sample_sensor_data.accel_data.z,
+					DOUBLE_DECIMAL_PLACE_DIGITS)
+			||
+				nx_azure_iot_json_writer_append_property_with_double_value(
+					&json_writer, (UCHAR*) telemetry_gyrx,
+					sizeof(telemetry_gyrx) - 1, sample_sensor_data.gyro_data.x,
+					DOUBLE_DECIMAL_PLACE_DIGITS)
+			||
+ 				nx_azure_iot_json_writer_append_property_with_double_value(
+					&json_writer, (UCHAR*) telemetry_gyry,
+					sizeof(telemetry_gyry) - 1, sample_sensor_data.gyro_data.y,
+					DOUBLE_DECIMAL_PLACE_DIGITS)
+			||
+ 				nx_azure_iot_json_writer_append_property_with_double_value(
+					&json_writer, (UCHAR*) telemetry_gyrz,
+					sizeof(telemetry_gyrz) - 1, sample_sensor_data.gyro_data.z,
+					DOUBLE_DECIMAL_PLACE_DIGITS)
+			||
+			nx_azure_iot_json_writer_append_property_with_double_value(
+					&json_writer, (UCHAR*) telemetry_light,
+					sizeof(telemetry_light) - 1, sample_sensor_data.ambient_light_value,
+					DOUBLE_DECIMAL_PLACE_DIGITS) ||
          nx_azure_iot_json_writer_append_end_object(&json_writer))
     {
         printf("Telemetry message failed to build message\r\n");
         nx_azure_iot_hub_client_telemetry_message_delete(packet_ptr);
         return;
     }
+    current_device_temp = (double)sample_sensor_data.enviro_data.temperature;
 
     buffer_length = nx_azure_iot_json_writer_get_bytes_used(&json_writer);
     if ((status = nx_azure_iot_hub_client_telemetry_send(hub_client_ptr, packet_ptr,

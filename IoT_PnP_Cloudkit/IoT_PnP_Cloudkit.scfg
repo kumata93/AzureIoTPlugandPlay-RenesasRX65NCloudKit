@@ -498,32 +498,32 @@
         <pinItem allocation="28" comments="" direction="None" id="TXD0" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="34" comments="" direction="None" id="SSCL2" isUsedBySoftware="true" locked="false" operationMode="" status="65280"/>
         <pinItem allocation="7" comments="" direction="None" id="FINED" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinnumItem comment="Reset SW" id="10"/>
-        <pinnumItem comment="User SW" id="19"/>
-        <pinnumItem comment="EMLE" id="2"/>
-        <pinnumItem comment="Silex HSUART2_TXD" id="20"/>
         <pinnumItem comment="Silex HSUART2_RXD" id="22"/>
+        <pinnumItem comment="SERIAL RXD" id="66"/>
+        <pinnumItem comment="SERIAL TXD" id="67"/>
         <pinnumItem comment="Silex HSUART1_CTS" id="25"/>
         <pinnumItem comment="Silex HSUART1_RTS" id="26"/>
         <pinnumItem comment="Silex HSUART1_RXD" id="27"/>
         <pinnumItem comment="Silex HSUART1_TXD" id="28"/>
-        <pinnumItem comment="SDA0" id="33"/>
-        <pinnumItem comment="SCL0" id="34"/>
-        <pinnumItem comment="USB Micro DM" id="36"/>
-        <pinnumItem comment="USB Micro DP" id="37"/>
-        <pinnumItem comment="LED2" id="58"/>
-        <pinnumItem comment="LED1" id="61"/>
-        <pinnumItem comment="SERIAL RXD" id="66"/>
-        <pinnumItem comment="SERIAL TXD" id="67"/>
         <pinnumItem comment="BMI160 INT2" id="71"/>
         <pinnumItem comment="BMI160 INT1" id="72"/>
         <pinnumItem comment="ISL29035 INT#" id="73"/>
+        <pinnumItem comment="Reset SW" id="10"/>
+        <pinnumItem comment="SDA0" id="33"/>
+        <pinnumItem comment="SCL0" id="34"/>
         <pinnumItem comment="QSPI SIO1" id="79"/>
+        <pinnumItem comment="USB Micro DM" id="36"/>
+        <pinnumItem comment="LED2" id="58"/>
+        <pinnumItem comment="USB Micro DP" id="37"/>
+        <pinnumItem comment="User SW" id="19"/>
+        <pinnumItem comment="EMLE" id="2"/>
         <pinnumItem comment="QSPI SIO0" id="80"/>
         <pinnumItem comment="QSPI SCLK" id="81"/>
         <pinnumItem comment="QSPI CS#" id="82"/>
+        <pinnumItem comment="LED1" id="61"/>
         <pinnumItem comment="QSPI SIO3" id="83"/>
         <pinnumItem comment="QSPI SIO2" id="84"/>
+        <pinnumItem comment="Silex HSUART2_TXD" id="20"/>
         <pinnumItem comment="Silex RST" id="86"/>
     </tool>
     <tool id="Summary" version="1.0.0.0">
@@ -536,7 +536,7 @@
                 <gridItem id="BSP_CFG_USER_STACK_ENABLE" selectedIndex="1"/>
                 <gridItem id="BSP_CFG_USTACK_BYTES" selectedIndex="0x1000"/>
                 <gridItem id="BSP_CFG_ISTACK_BYTES" selectedIndex="0x800"/>
-                <gridItem id="BSP_CFG_HEAP_BYTES" selectedIndex="0x800"/>
+                <gridItem id="BSP_CFG_HEAP_BYTES" selectedIndex="0x400"/>
                 <gridItem id="BSP_CFG_IO_LIB_ENABLE" selectedIndex="0"/>
                 <gridItem id="BSP_CFG_USER_CHARGET_ENABLED" selectedIndex="0"/>
                 <gridItem id="BSP_CFG_USER_CHARGET_FUNCTION" selectedIndex="my_sw_charget_function"/>
@@ -582,7 +582,7 @@
             <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
             <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
         </configuration>
-        <configuration enable="true" exclude="false" id="43ff593e-9264-49b2-931b-8d5b287fa4f7" inuse="true" name="threadx">
+        <configuration enable="true" exclude="false" id="f97b9840-56d6-48e7-8c67-a1b3e3c4df73" inuse="true" name="threadx">
             <component description="Dependency: None&#10;Azure RTOS ThreadX is an advanced real-time operating system (RTOS) designed specifically for deeply embedded applications" detailDescription="Azure RTOS ThreadX is an advanced real-time operating system (RTOS) designed specifically for deeply embedded applications" display="Azure RTOS ThreadX" id="threadx6.2.0_rel-rx-1.0.0" version="6.2.0_rel-rx-1.0.0">
                 <gridItem id="USE_TX_MAX_PRIORITIES" selectedIndex="0"/>
                 <gridItem id="TX_MAX_PRIORITIES" selectedIndex="32"/>
@@ -631,11 +631,11 @@
             </component>
             <source description="Code generator for Real-time OS" display="RTOS Configurator" id="com.renesas.smc.tools.swcomponent.rtosconfigurator.source"/>
         </configuration>
-        <configuration enable="true" exclude="false" id="a6ad34e2-f833-4c97-b163-7417edbb9a30" inuse="true" name="netxduo_addons">
+        <configuration enable="true" exclude="false" id="849eceb5-8ec8-46ea-adec-7fcf32e46335" inuse="true" name="netxduo_addons">
             <component description="Dependency: filex, netxduo&#10;Azure RTOS NetX Duo Addons provide additional libraries for NetX Duo such as azure_iot (azure-sdk-for-c), cloud, dhcp, dns, http, mqtt, nat, smtp, snmp etc." detailDescription="Azure RTOS NetX Duo Addons provide additional libraries for NetX Duo such as azure_iot (azure-sdk-for-c), cloud, dhcp, dns, http, mqtt, nat, smtp, snmp etc." display="Azure RTOS NetX Duo Addons" id="netxduo_addons6.2.0_rel-rx-1.0.0" version="6.2.0_rel-rx-1.0.0"/>
             <source description="Code generator for Real-time OS" display="RTOS Configurator" id="com.renesas.smc.tools.swcomponent.rtosconfigurator.source"/>
         </configuration>
-        <configuration enable="true" exclude="false" id="3f5b5520-1b3b-4b9b-9b2c-e368e85114fb" inuse="true" name="netxduo">
+        <configuration enable="true" exclude="false" id="9ed12d32-70a6-4f34-a48e-38d5352f15c9" inuse="true" name="netxduo">
             <component description="Dependency: threadx&#10;Azure RTOS NetX Duo is an advanced, industrial-grade TCP/IP network stack designed specifically for deeply embedded real-time and IoT applications" detailDescription="Azure RTOS NetX Duo is an advanced, industrial-grade TCP/IP network stack designed specifically for deeply embedded real-time and IoT applications" display="Azure RTOS NetX Duo" id="netxduo6.2.0_rel-rx-1.0.0" version="6.2.0_rel-rx-1.0.0">
                 <gridItem id="USE_NX_MAX_PHYSICAL_INTERFACES" selectedIndex="0"/>
                 <gridItem id="NX_MAX_PHYSICAL_INTERFACES" selectedIndex="1"/>
@@ -832,7 +832,7 @@
             </component>
             <source description="Code generator for Real-time OS" display="RTOS Configurator" id="com.renesas.smc.tools.swcomponent.rtosconfigurator.source"/>
         </configuration>
-        <configuration enable="true" exclude="false" id="984606bc-636e-461e-bec1-b3ab3ff35c8f" inuse="true" name="filex">
+        <configuration enable="true" exclude="false" id="e0957ea2-6341-434e-a498-547a86541542" inuse="true" name="filex">
             <component description="Dependency: threadx&#10;Azure RTOS FileX is a high-performance, FAT-compatible file system that’s fully integrated with Azure RTOS ThreadX" detailDescription="Azure RTOS FileX is a high-performance, FAT-compatible file system that’s fully integrated with Azure RTOS ThreadX" display="Azure RTOS FileX" id="filex6.2.0_rel-rx-1.0.0" version="6.2.0_rel-rx-1.0.0">
                 <gridItem id="USE_FX_MAX_LONG_NAME_LEN" selectedIndex="0"/>
                 <gridItem id="FX_MAX_LONG_NAME_LEN" selectedIndex="256"/>
@@ -1062,7 +1062,7 @@
             <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
             <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
         </configuration>
-        <configuration enable="true" exclude="false" id="c0be841c-e63f-4a5c-9076-0d0a4a3090a1" inuse="true" name="azurertos_object">
+        <configuration enable="true" exclude="false" id="6f56258b-1f7d-47da-9b9b-967ab2b14b15" inuse="true" name="azurertos_object">
             <allocatable id="" name="" type=""/>
             <component description="" detailDescription="" display="AzureRTOS Object" id="com.renesas.smc.tools.swcomponent.rtosconfigurator.azurertos.object" version="1.0.111"/>
             <source description="Code generator for Real-time OS" display="RTOS Configurator" id="com.renesas.smc.tools.swcomponent.rtosconfigurator.source"/>
