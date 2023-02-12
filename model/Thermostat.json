@@ -1,0 +1,462 @@
+[
+  {
+    "@id": "dtmi:com:example:rxcloudkitsensor;1",
+    "@type": "Interface",
+    "contents": [
+      {
+        "@id": "dtmi:com:example:Thermostat:humidity;3",
+        "@type": [
+          "Telemetry",
+          "NumberValue",
+          "Humidity"
+        ],
+        "displayName": {
+          "en": "humidity"
+        },
+        "name": "humidity",
+        "schema": "double"
+      },
+      {
+        "@id": "dtmi:com:example:Thermostat:pressure;3",
+        "@type": [
+          "Telemetry",
+          "NumberValue",
+          "Pressure"
+        ],
+        "displayName": {
+          "en": "pressure"
+        },
+        "name": "pressure",
+        "schema": "double"
+      },
+      {
+        "@id": "dtmi:com:example:Thermostat:gasResistance;3",
+        "@type": [
+          "Telemetry",
+          "NumberValue",
+          "Resistance"
+        ],
+        "displayName": {
+          "en": "gasResistance"
+        },
+        "name": "gasResistance",
+        "schema": "double"
+      },
+      {
+        "@id": "dtmi:com:example:Thermostat:accelerometerX;3",
+        "@type": [
+          "Telemetry",
+          "NumberValue",
+          "Acceleration"
+        ],
+        "displayName": {
+          "en": "accelerometerX"
+        },
+        "name": "accelerometerX",
+        "schema": "double"
+      },
+      {
+        "@id": "dtmi:com:example:Thermostat:accelerometerY;3",
+        "@type": [
+          "Telemetry",
+          "NumberValue",
+          "Acceleration"
+        ],
+        "displayName": {
+          "en": "accelerometerY"
+        },
+        "name": "accelerometerY",
+        "schema": "double"
+      },
+      {
+        "@id": "dtmi:com:example:Thermostat:accelerometerZ;3",
+        "@type": [
+          "Telemetry",
+          "NumberValue",
+          "Acceleration"
+        ],
+        "displayName": {
+          "en": "accelerometerZ"
+        },
+        "name": "accelerometerZ",
+        "schema": "double"
+      },
+      {
+        "@id": "dtmi:com:example:Thermostat:gyroscopeX;3",
+        "@type": [
+          "Telemetry",
+          "NumberValue",
+          "Velocity"
+        ],
+        "displayName": {
+          "en": "gyroscopeX"
+        },
+        "name": "gyroscopeX",
+        "schema": "double"
+      },
+      {
+        "@id": "dtmi:com:example:Thermostat:gyroscopeY;3",
+        "@type": [
+          "Telemetry",
+          "NumberValue",
+          "Velocity"
+        ],
+        "displayName": {
+          "en": "gyroscopeY"
+        },
+        "name": "gyroscopeY",
+        "schema": "double"
+      },
+      {
+        "@type": [
+          "Telemetry",
+          "NumberValue",
+          "Temperature"
+        ],
+        "description": {
+          "en": "Temperature in degrees Celsius."
+        },
+        "displayName": {
+          "en": "Temperature"
+        },
+        "name": "temperature",
+        "schema": "double",
+        "unit": "degreeCelsius"
+      },
+      {
+        "@type": [
+          "Property",
+          "NumberValue",
+          "Temperature"
+        ],
+        "description": {
+          "en": "Allows to remotely specify the desired target temperature."
+        },
+        "displayName": {
+          "en": "Target Temperature"
+        },
+        "name": "targetTemperature",
+        "schema": "double",
+        "unit": "degreeCelsius",
+        "writable": true
+      },
+      {
+        "@type": [
+          "Property",
+          "NumberValue",
+          "Temperature"
+        ],
+        "description": {
+          "en": "Returns the max temperature since last device reboot."
+        },
+        "displayName": {
+          "en": "Max temperature since last reboot."
+        },
+        "name": "maxTempSinceLastReboot",
+        "schema": "double",
+        "unit": "degreeCelsius",
+        "writable": false
+      },
+      {
+        "@type": "Command",
+        "description": {
+          "en": "This command returns the max, min and average temperature from the specified time to the current time."
+        },
+        "displayName": {
+          "en": "Get Max-Min report."
+        },
+        "name": "getMaxMinReport",
+        "request": {
+          "@type": "CommandPayload",
+          "description": {
+            "en": "Period to return the max-min report."
+          },
+          "displayName": {
+            "en": "Since"
+          },
+          "name": "since",
+          "schema": "dateTime"
+        },
+        "response": {
+          "@type": "CommandPayload",
+          "displayName": {
+            "en": "Temperature Report"
+          },
+          "name": "tempReport",
+          "schema": {
+            "@type": "Object",
+            "fields": [
+              {
+                "displayName": {
+                  "en": "Max temperature"
+                },
+                "name": "maxTemp",
+                "schema": "double"
+              },
+              {
+                "displayName": {
+                  "en": "Min temperature"
+                },
+                "name": "minTemp",
+                "schema": "double"
+              },
+              {
+                "displayName": {
+                  "en": "Average Temperature"
+                },
+                "name": "avgTemp",
+                "schema": "double"
+              },
+              {
+                "displayName": {
+                  "en": "Start Time"
+                },
+                "name": "startTime",
+                "schema": "dateTime"
+              },
+              {
+                "displayName": {
+                  "en": "End Time"
+                },
+                "name": "endTime",
+                "schema": "dateTime"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "@id": "dtmi:com:example:Thermostat:gyroscopeZ;3",
+        "@type": [
+          "Telemetry",
+          "NumberValue",
+          "Velocity"
+        ],
+        "displayName": {
+          "en": "gyroscopeZ"
+        },
+        "name": "gyroscopeZ",
+        "schema": "double"
+      },
+      {
+        "@id": "dtmi:com:example:Thermostat:illuminance;3",
+        "@type": [
+          "Telemetry",
+          "NumberValue",
+          "Illuminance"
+        ],
+        "displayName": {
+          "en": "illuminance"
+        },
+        "name": "illuminance",
+        "schema": "double"
+      }
+    ],
+    "description": {
+      "en": "Reports current temperature and provides desired temperature control."
+    },
+    "displayName": {
+      "en": "Thermostat"
+    },
+    "extends": [
+      "dtmi:azure:iot:deviceUpdateContractModel;1"
+    ],
+    "@context": [
+      "dtmi:iotcentral:context;2",
+      "dtmi:dtdl:context;2"
+    ]
+  },
+  {
+    "@context": [
+      "dtmi:iotcentral:context;2",
+      "dtmi:dtdl:context;2"
+    ],
+    "@id": "dtmi:azure:iot:deviceUpdateContractModel;1",
+    "@type": [
+      "Interface",
+      "NamedInterface"
+    ],
+    "contents": [
+      {
+        "@type": "Component",
+        "displayName": {
+          "en": "Device Update Interface version 1"
+        },
+        "name": "deviceUpdate",
+        "schema": {
+          "@id": "dtmi:azure:iot:deviceUpdate;1",
+          "@type": "Interface",
+          "contents": [
+            {
+              "@type": "Property",
+              "name": "agent",
+              "schema": "dtmi:azure:iot:deviceUpdate:agentMetadata;1"
+            },
+            {
+              "@type": "Property",
+              "name": "service",
+              "schema": "dtmi:azure:iot:deviceUpdate:serviceMetadata;1",
+              "writable": true
+            }
+          ],
+          "description": {
+            "en": "Device Update interface version 1 is used to send update action and metadata to devices and receive update status from devices."
+          },
+          "displayName": {
+            "en": "Device Update Interface version 1"
+          },
+          "schemas": [
+            {
+              "@id": "dtmi:azure:iot:deviceUpdate:agentMetadata;1",
+              "@type": "Object",
+              "fields": [
+                {
+                  "name": "state",
+                  "schema": "integer"
+                },
+                {
+                  "name": "installedUpdateId",
+                  "schema": "string"
+                },
+                {
+                  "name": "workflow",
+                  "schema": "dtmi:azure:iot:deviceUpdate:workflowMetadata;1"
+                },
+                {
+                  "name": "lastInstallResult",
+                  "schema": "dtmi:azure:iot:deviceUpdate:installResultMetadata;1"
+                },
+                {
+                  "name": "compatPropertyNames",
+                  "schema": "string"
+                },
+                {
+                  "name": "deviceProperties",
+                  "schema": {
+                    "@type": "Map",
+                    "mapKey": {
+                      "name": "devicePropertyName",
+                      "schema": "string"
+                    },
+                    "mapValue": {
+                      "name": "devicePropertyValue",
+                      "schema": "string"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "@id": "dtmi:azure:iot:deviceUpdate:serviceMetadata;1",
+              "@type": "Object",
+              "fields": [
+                {
+                  "name": "workflow",
+                  "schema": "dtmi:azure:iot:deviceUpdate:workflowMetadata;1"
+                },
+                {
+                  "name": "updateManifest",
+                  "schema": "string"
+                },
+                {
+                  "name": "updateManifestSignature",
+                  "schema": "string"
+                },
+                {
+                  "name": "fileUrls",
+                  "schema": {
+                    "@type": "Map",
+                    "mapKey": {
+                      "name": "fileId",
+                      "schema": "string"
+                    },
+                    "mapValue": {
+                      "name": "downloadUri",
+                      "schema": "string"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "@id": "dtmi:azure:iot:deviceUpdate:workflowMetadata;1",
+              "@type": "Object",
+              "fields": [
+                {
+                  "name": "action",
+                  "schema": "integer"
+                },
+                {
+                  "name": "id",
+                  "schema": "string"
+                },
+                {
+                  "name": "retryTimestamp",
+                  "schema": "dateTime"
+                }
+              ]
+            },
+            {
+              "@id": "dtmi:azure:iot:deviceUpdate:installResultMetadata;1",
+              "@type": "Object",
+              "fields": [
+                {
+                  "name": "resultCode",
+                  "schema": "integer"
+                },
+                {
+                  "name": "extendedResultCode",
+                  "schema": "integer"
+                },
+                {
+                  "name": "resultDetails",
+                  "schema": "string"
+                },
+                {
+                  "name": "stepResults",
+                  "schema": {
+                    "@type": "Map",
+                    "mapKey": {
+                      "comment": "The string format is step_{index}. For example, step_0, step_1, etc.",
+                      "name": "stepIndex",
+                      "schema": "string"
+                    },
+                    "mapValue": {
+                      "name": "stepResult",
+                      "schema": "dtmi:azure:iot:deviceUpdate:stepResultMetadata;1"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "@id": "dtmi:azure:iot:deviceUpdate:stepResultMetadata;1",
+              "@type": "Object",
+              "fields": [
+                {
+                  "name": "resultCode",
+                  "schema": "integer"
+                },
+                {
+                  "name": "extendedResultCode",
+                  "schema": "integer"
+                },
+                {
+                  "name": "resultDetails",
+                  "schema": "string"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ],
+    "description": {
+      "en": "Device Update Base Model version 1 supports device update interface version 1 and update manifest version 4."
+    },
+    "displayName": {
+      "en": "Device Update Base Model version 1"
+    },
+    "name": "azure_iot_deviceUpdateContractModel"
+  }
+]

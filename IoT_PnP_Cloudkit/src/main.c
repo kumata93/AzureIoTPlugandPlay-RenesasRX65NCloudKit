@@ -18,6 +18,7 @@
 #include "nx_secure_tls_api.h"
 
 #include <demo_printf.h>
+#include "sample_sensor.h"
 
 /* Defined, HTTP proxy is enabled.  */
 /*
@@ -154,6 +155,7 @@ extern VOID sample_entry(NX_IP* ip_ptr, NX_PACKET_POOL* pool_ptr, NX_DNS* dns_pt
 #endif /* SAMPLE_NETWORK_CONFIGURE */
 
 static TX_THREAD        sample_helper_thread;
+static TX_THREAD        sample_sensor_thread;
 static NX_PACKET_POOL   pool_0;
 static NX_IP            ip_0;
 static NX_DNS           dns_0;
@@ -178,6 +180,7 @@ extern ULONG sample_pool_stack_size;
 static ULONG sample_arp_cache_area[SAMPLE_ARP_CACHE_SIZE / sizeof(ULONG)];
 #endif
 static ULONG sample_helper_thread_stack[SAMPLE_HELPER_STACK_SIZE / sizeof(ULONG)];
+static ULONG sample_sensor_stack[2048 / sizeof(ULONG)];
 
 static const CHAR *sntp_servers[] =
 {
@@ -311,11 +314,18 @@ UINT  status;
     /* Initialize TLS.  */
     nx_secure_tls_initialize();
 
+    /* Create sensor helper thread.  */
+    status = tx_thread_create(&sample_sensor_thread, "Sensor Thread",
+                              sample_sensor_entry, 0,
+                              sample_sensor_stack, 2048,
+                              10, 10,
+                              TX_NO_TIME_SLICE, TX_AUTO_START);
+
     /* Create sample helper thread.  */
     status = tx_thread_create(&sample_helper_thread, "Demo Thread",
                               sample_helper_thread_entry, 0,
                               sample_helper_thread_stack, SAMPLE_HELPER_STACK_SIZE,
-                              SAMPLE_HELPER_THREAD_PRIORITY, SAMPLE_HELPER_THREAD_PRIORITY,
+                              SAMPLE_HELPER_THREAD_PRIORITY+1, SAMPLE_HELPER_THREAD_PRIORITY+1,
                               TX_NO_TIME_SLICE, TX_AUTO_START);
 
     /* Check status.  */

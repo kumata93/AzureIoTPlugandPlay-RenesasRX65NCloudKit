@@ -488,7 +488,7 @@
     </tool>
     <tool id="Pins" version="1.0.1.0">
         <pinItem allocation="2" comments="" direction="None" id="EMLE" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="7" comments="" direction="None" id="FINED" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="33" comments="" direction="None" id="SSDA2" isUsedBySoftware="true" locked="false" operationMode="" status="65280"/>
         <pinItem allocation="25" comments="" direction="None" id="CTS0#" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="67" comments="" direction="None" id="RXD5" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="27" comments="" direction="None" id="RXD0" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
@@ -496,6 +496,8 @@
         <pinItem allocation="66" comments="" direction="None" id="TXD5" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="22" comments="" direction="None" id="TXD1" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="28" comments="" direction="None" id="TXD0" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="34" comments="" direction="None" id="SSCL2" isUsedBySoftware="true" locked="false" operationMode="" status="65280"/>
+        <pinItem allocation="7" comments="" direction="None" id="FINED" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinnumItem comment="Silex HSUART2_RXD" id="22"/>
         <pinnumItem comment="SERIAL RXD" id="66"/>
         <pinnumItem comment="SERIAL TXD" id="67"/>
@@ -534,7 +536,7 @@
                 <gridItem id="BSP_CFG_USER_STACK_ENABLE" selectedIndex="1"/>
                 <gridItem id="BSP_CFG_USTACK_BYTES" selectedIndex="0x1000"/>
                 <gridItem id="BSP_CFG_ISTACK_BYTES" selectedIndex="0x800"/>
-                <gridItem id="BSP_CFG_HEAP_BYTES" selectedIndex="0x800"/>
+                <gridItem id="BSP_CFG_HEAP_BYTES" selectedIndex="0x400"/>
                 <gridItem id="BSP_CFG_IO_LIB_ENABLE" selectedIndex="0"/>
                 <gridItem id="BSP_CFG_USER_CHARGET_ENABLED" selectedIndex="0"/>
                 <gridItem id="BSP_CFG_USER_CHARGET_FUNCTION" selectedIndex="my_sw_charget_function"/>
@@ -580,7 +582,7 @@
             <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
             <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
         </configuration>
-        <configuration enable="true" exclude="false" id="72b563be-1991-466d-a893-d9699aa046be" inuse="true" name="threadx">
+        <configuration enable="true" exclude="false" id="f97b9840-56d6-48e7-8c67-a1b3e3c4df73" inuse="true" name="threadx">
             <component description="Dependency: None&#10;Azure RTOS ThreadX is an advanced real-time operating system (RTOS) designed specifically for deeply embedded applications" detailDescription="Azure RTOS ThreadX is an advanced real-time operating system (RTOS) designed specifically for deeply embedded applications" display="Azure RTOS ThreadX" id="threadx6.2.0_rel-rx-1.0.0" version="6.2.0_rel-rx-1.0.0">
                 <gridItem id="USE_TX_MAX_PRIORITIES" selectedIndex="0"/>
                 <gridItem id="TX_MAX_PRIORITIES" selectedIndex="32"/>
@@ -629,11 +631,11 @@
             </component>
             <source description="Code generator for Real-time OS" display="RTOS Configurator" id="com.renesas.smc.tools.swcomponent.rtosconfigurator.source"/>
         </configuration>
-        <configuration enable="true" exclude="false" id="9f8ee51f-cd6b-41f9-8210-b00c003a5b22" inuse="true" name="netxduo_addons">
+        <configuration enable="true" exclude="false" id="849eceb5-8ec8-46ea-adec-7fcf32e46335" inuse="true" name="netxduo_addons">
             <component description="Dependency: filex, netxduo&#10;Azure RTOS NetX Duo Addons provide additional libraries for NetX Duo such as azure_iot (azure-sdk-for-c), cloud, dhcp, dns, http, mqtt, nat, smtp, snmp etc." detailDescription="Azure RTOS NetX Duo Addons provide additional libraries for NetX Duo such as azure_iot (azure-sdk-for-c), cloud, dhcp, dns, http, mqtt, nat, smtp, snmp etc." display="Azure RTOS NetX Duo Addons" id="netxduo_addons6.2.0_rel-rx-1.0.0" version="6.2.0_rel-rx-1.0.0"/>
             <source description="Code generator for Real-time OS" display="RTOS Configurator" id="com.renesas.smc.tools.swcomponent.rtosconfigurator.source"/>
         </configuration>
-        <configuration enable="true" exclude="false" id="aad9ece9-2500-4565-9903-99d55a58781b" inuse="true" name="netxduo">
+        <configuration enable="true" exclude="false" id="9ed12d32-70a6-4f34-a48e-38d5352f15c9" inuse="true" name="netxduo">
             <component description="Dependency: threadx&#10;Azure RTOS NetX Duo is an advanced, industrial-grade TCP/IP network stack designed specifically for deeply embedded real-time and IoT applications" detailDescription="Azure RTOS NetX Duo is an advanced, industrial-grade TCP/IP network stack designed specifically for deeply embedded real-time and IoT applications" display="Azure RTOS NetX Duo" id="netxduo6.2.0_rel-rx-1.0.0" version="6.2.0_rel-rx-1.0.0">
                 <gridItem id="USE_NX_MAX_PHYSICAL_INTERFACES" selectedIndex="0"/>
                 <gridItem id="NX_MAX_PHYSICAL_INTERFACES" selectedIndex="1"/>
@@ -830,7 +832,7 @@
             </component>
             <source description="Code generator for Real-time OS" display="RTOS Configurator" id="com.renesas.smc.tools.swcomponent.rtosconfigurator.source"/>
         </configuration>
-        <configuration enable="true" exclude="false" id="9d59389a-30e6-4b33-86b0-ad40bfca268c" inuse="true" name="filex">
+        <configuration enable="true" exclude="false" id="e0957ea2-6341-434e-a498-547a86541542" inuse="true" name="filex">
             <component description="Dependency: threadx&#10;Azure RTOS FileX is a high-performance, FAT-compatible file system that’s fully integrated with Azure RTOS ThreadX" detailDescription="Azure RTOS FileX is a high-performance, FAT-compatible file system that’s fully integrated with Azure RTOS ThreadX" display="Azure RTOS FileX" id="filex6.2.0_rel-rx-1.0.0" version="6.2.0_rel-rx-1.0.0">
                 <gridItem id="USE_FX_MAX_LONG_NAME_LEN" selectedIndex="0"/>
                 <gridItem id="FX_MAX_LONG_NAME_LEN" selectedIndex="256"/>
@@ -1060,7 +1062,7 @@
             <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
             <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
         </configuration>
-        <configuration enable="true" exclude="false" id="275fcf0c-36e1-46ed-82f7-9290cf39cb06" inuse="true" name="azurertos_object">
+        <configuration enable="true" exclude="false" id="6f56258b-1f7d-47da-9b9b-967ab2b14b15" inuse="true" name="azurertos_object">
             <allocatable id="" name="" type=""/>
             <component description="" detailDescription="" display="AzureRTOS Object" id="com.renesas.smc.tools.swcomponent.rtosconfigurator.azurertos.object" version="1.0.111"/>
             <source description="Code generator for Real-time OS" display="RTOS Configurator" id="com.renesas.smc.tools.swcomponent.rtosconfigurator.source"/>
@@ -1156,8 +1158,8 @@
                 <gridItem id="SCI_CFG_CH10_INCLUDED" selectedIndex="0"/>
                 <gridItem id="SCI_CFG_CH11_INCLUDED" selectedIndex="0"/>
                 <gridItem id="SCI_CFG_CH12_INCLUDED" selectedIndex="0"/>
-                <gridItem id="SCI_CFG_CH0_TX_BUFSIZ" selectedIndex="2180"/>
-                <gridItem id="SCI_CFG_CH1_TX_BUFSIZ" selectedIndex="2180"/>
+                <gridItem id="SCI_CFG_CH0_TX_BUFSIZ" selectedIndex="80"/>
+                <gridItem id="SCI_CFG_CH1_TX_BUFSIZ" selectedIndex="80"/>
                 <gridItem id="SCI_CFG_CH2_TX_BUFSIZ" selectedIndex="80"/>
                 <gridItem id="SCI_CFG_CH3_TX_BUFSIZ" selectedIndex="80"/>
                 <gridItem id="SCI_CFG_CH4_TX_BUFSIZ" selectedIndex="80"/>
@@ -1169,8 +1171,8 @@
                 <gridItem id="SCI_CFG_CH10_TX_BUFSIZ" selectedIndex="80"/>
                 <gridItem id="SCI_CFG_CH11_TX_BUFSIZ" selectedIndex="80"/>
                 <gridItem id="SCI_CFG_CH12_TX_BUFSIZ" selectedIndex="80"/>
-                <gridItem id="SCI_CFG_CH0_RX_BUFSIZ" selectedIndex="4096"/>
-                <gridItem id="SCI_CFG_CH1_RX_BUFSIZ" selectedIndex="4096"/>
+                <gridItem id="SCI_CFG_CH0_RX_BUFSIZ" selectedIndex="3000"/>
+                <gridItem id="SCI_CFG_CH1_RX_BUFSIZ" selectedIndex="3000"/>
                 <gridItem id="SCI_CFG_CH2_RX_BUFSIZ" selectedIndex="80"/>
                 <gridItem id="SCI_CFG_CH3_RX_BUFSIZ" selectedIndex="80"/>
                 <gridItem id="SCI_CFG_CH4_RX_BUFSIZ" selectedIndex="80"/>
@@ -1308,6 +1310,132 @@
                 <gridItem id="BYTEQ_CFG_MAX_CTRL_BLKS" selectedIndex="32"/>
                 <gridItem id="BYTEQ_CFG_PROTECT_QUEUE" selectedIndex="0"/>
                 <gridItem id="BYTEQ_CFG_CRITICAL_SECTION" selectedIndex="0"/>
+            </component>
+            <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
+            <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
+        </configuration>
+        <configuration inuse="true" name="r_sci_iic_rx">
+            <component description="Dependency : r_bsp version(s) 7.20&#10; The SCI simple I2C mode fit module provides a method to transmit and receive data between the master and slave devices using the serial communications interface (SCI). The SCI simple I2C mode is in compliance with single master mode of the NXP I2C-bus (Inter-IC-Bus) interface.  " detailDescription="Simple IIC Driver." display="r_sci_iic_rx" id="r_sci_iic_rx2.50" version="2.50">
+                <gridItem id="SSCL0" selectedIndex="0"/>
+                <gridItem id="SSDA0" selectedIndex="0"/>
+                <gridItem id="SCI0" selectedIndex="0"/>
+                <gridItem id="SSCL1" selectedIndex="0"/>
+                <gridItem id="SSDA1" selectedIndex="0"/>
+                <gridItem id="SCI1" selectedIndex="0"/>
+                <gridItem id="SSCL2" selectedIndex="1"/>
+                <gridItem id="SSDA2" selectedIndex="1"/>
+                <gridItem id="SCI2" selectedIndex="1"/>
+                <gridItem id="SSCL3" selectedIndex="0"/>
+                <gridItem id="SSDA3" selectedIndex="0"/>
+                <gridItem id="SCI3" selectedIndex="0"/>
+                <gridItem id="SSCL4" selectedIndex="0"/>
+                <gridItem id="SSDA4" selectedIndex="0"/>
+                <gridItem id="SCI4" selectedIndex="0"/>
+                <gridItem id="SSCL5" selectedIndex="0"/>
+                <gridItem id="SSDA5" selectedIndex="0"/>
+                <gridItem id="SCI5" selectedIndex="0"/>
+                <gridItem id="SSCL6" selectedIndex="0"/>
+                <gridItem id="SSDA6" selectedIndex="0"/>
+                <gridItem id="SCI6" selectedIndex="0"/>
+                <gridItem id="SSCL7" selectedIndex="0"/>
+                <gridItem id="SSDA7" selectedIndex="0"/>
+                <gridItem id="SCI7" selectedIndex="0"/>
+                <gridItem id="SSCL8" selectedIndex="0"/>
+                <gridItem id="SSDA8" selectedIndex="0"/>
+                <gridItem id="SCI8" selectedIndex="0"/>
+                <gridItem id="SSCL9" selectedIndex="0"/>
+                <gridItem id="SSDA9" selectedIndex="0"/>
+                <gridItem id="SCI9" selectedIndex="0"/>
+                <gridItem id="SSCL10" selectedIndex="0"/>
+                <gridItem id="SSDA10" selectedIndex="0"/>
+                <gridItem id="SCI10" selectedIndex="0"/>
+                <gridItem id="SSCL11" selectedIndex="0"/>
+                <gridItem id="SSDA11" selectedIndex="0"/>
+                <gridItem id="SCI11" selectedIndex="0"/>
+                <gridItem id="SSCL12" selectedIndex="0"/>
+                <gridItem id="SSDA12" selectedIndex="0"/>
+                <gridItem id="SCI12" selectedIndex="0"/>
+                <gridItem id="SCI_IIC_CFG_PARAM_CHECKING_ENABLE" selectedIndex="2"/>
+                <gridItem id="SCI_IIC_CFG_CH0_INCLUDED" selectedIndex="0"/>
+                <gridItem id="SCI_IIC_CFG_CH1_INCLUDED" selectedIndex="0"/>
+                <gridItem id="SCI_IIC_CFG_CH2_INCLUDED" selectedIndex="1"/>
+                <gridItem id="SCI_IIC_CFG_CH3_INCLUDED" selectedIndex="0"/>
+                <gridItem id="SCI_IIC_CFG_CH4_INCLUDED" selectedIndex="0"/>
+                <gridItem id="SCI_IIC_CFG_CH5_INCLUDED" selectedIndex="0"/>
+                <gridItem id="SCI_IIC_CFG_CH6_INCLUDED" selectedIndex="0"/>
+                <gridItem id="SCI_IIC_CFG_CH7_INCLUDED" selectedIndex="0"/>
+                <gridItem id="SCI_IIC_CFG_CH8_INCLUDED" selectedIndex="0"/>
+                <gridItem id="SCI_IIC_CFG_CH9_INCLUDED" selectedIndex="0"/>
+                <gridItem id="SCI_IIC_CFG_CH10_INCLUDED" selectedIndex="0"/>
+                <gridItem id="SCI_IIC_CFG_CH11_INCLUDED" selectedIndex="0"/>
+                <gridItem id="SCI_IIC_CFG_CH12_INCLUDED" selectedIndex="0"/>
+                <gridItem id="SCI_IIC_CFG_CH0_BITRATE_BPS" selectedIndex="384000"/>
+                <gridItem id="SCI_IIC_CFG_CH1_BITRATE_BPS" selectedIndex="384000"/>
+                <gridItem id="SCI_IIC_CFG_CH2_BITRATE_BPS" selectedIndex="384000"/>
+                <gridItem id="SCI_IIC_CFG_CH3_BITRATE_BPS" selectedIndex="384000"/>
+                <gridItem id="SCI_IIC_CFG_CH4_BITRATE_BPS" selectedIndex="384000"/>
+                <gridItem id="SCI_IIC_CFG_CH5_BITRATE_BPS" selectedIndex="384000"/>
+                <gridItem id="SCI_IIC_CFG_CH6_BITRATE_BPS" selectedIndex="384000"/>
+                <gridItem id="SCI_IIC_CFG_CH7_BITRATE_BPS" selectedIndex="384000"/>
+                <gridItem id="SCI_IIC_CFG_CH8_BITRATE_BPS" selectedIndex="384000"/>
+                <gridItem id="SCI_IIC_CFG_CH9_BITRATE_BPS" selectedIndex="384000"/>
+                <gridItem id="SCI_IIC_CFG_CH10_BITRATE_BPS" selectedIndex="384000"/>
+                <gridItem id="SCI_IIC_CFG_CH11_BITRATE_BPS" selectedIndex="384000"/>
+                <gridItem id="SCI_IIC_CFG_CH12_BITRATE_BPS" selectedIndex="384000"/>
+                <gridItem id="SCI_IIC_CFG_CH0_INT_PRIORITY" selectedIndex="1"/>
+                <gridItem id="SCI_IIC_CFG_CH1_INT_PRIORITY" selectedIndex="1"/>
+                <gridItem id="SCI_IIC_CFG_CH2_INT_PRIORITY" selectedIndex="1"/>
+                <gridItem id="SCI_IIC_CFG_CH3_INT_PRIORITY" selectedIndex="1"/>
+                <gridItem id="SCI_IIC_CFG_CH4_INT_PRIORITY" selectedIndex="1"/>
+                <gridItem id="SCI_IIC_CFG_CH5_INT_PRIORITY" selectedIndex="1"/>
+                <gridItem id="SCI_IIC_CFG_CH6_INT_PRIORITY" selectedIndex="1"/>
+                <gridItem id="SCI_IIC_CFG_CH7_INT_PRIORITY" selectedIndex="1"/>
+                <gridItem id="SCI_IIC_CFG_CH8_INT_PRIORITY" selectedIndex="1"/>
+                <gridItem id="SCI_IIC_CFG_CH9_INT_PRIORITY" selectedIndex="1"/>
+                <gridItem id="SCI_IIC_CFG_CH10_INT_PRIORITY" selectedIndex="1"/>
+                <gridItem id="SCI_IIC_CFG_CH11_INT_PRIORITY" selectedIndex="1"/>
+                <gridItem id="SCI_IIC_CFG_CH12_INT_PRIORITY" selectedIndex="1"/>
+                <gridItem id="SCI_IIC_CFG_CH0_DIGITAL_FILTER" selectedIndex="1"/>
+                <gridItem id="SCI_IIC_CFG_CH1_DIGITAL_FILTER" selectedIndex="1"/>
+                <gridItem id="SCI_IIC_CFG_CH2_DIGITAL_FILTER" selectedIndex="1"/>
+                <gridItem id="SCI_IIC_CFG_CH3_DIGITAL_FILTER" selectedIndex="1"/>
+                <gridItem id="SCI_IIC_CFG_CH4_DIGITAL_FILTER" selectedIndex="1"/>
+                <gridItem id="SCI_IIC_CFG_CH5_DIGITAL_FILTER" selectedIndex="1"/>
+                <gridItem id="SCI_IIC_CFG_CH6_DIGITAL_FILTER" selectedIndex="1"/>
+                <gridItem id="SCI_IIC_CFG_CH7_DIGITAL_FILTER" selectedIndex="1"/>
+                <gridItem id="SCI_IIC_CFG_CH8_DIGITAL_FILTER" selectedIndex="1"/>
+                <gridItem id="SCI_IIC_CFG_CH9_DIGITAL_FILTER" selectedIndex="1"/>
+                <gridItem id="SCI_IIC_CFG_CH10_DIGITAL_FILTER" selectedIndex="1"/>
+                <gridItem id="SCI_IIC_CFG_CH11_DIGITAL_FILTER" selectedIndex="1"/>
+                <gridItem id="SCI_IIC_CFG_CH12_DIGITAL_FILTER" selectedIndex="1"/>
+                <gridItem id="SCI_IIC_CFG_CH0_FILTER_CLOCK" selectedIndex="0"/>
+                <gridItem id="SCI_IIC_CFG_CH1_FILTER_CLOCK" selectedIndex="0"/>
+                <gridItem id="SCI_IIC_CFG_CH2_FILTER_CLOCK" selectedIndex="0"/>
+                <gridItem id="SCI_IIC_CFG_CH3_FILTER_CLOCK" selectedIndex="0"/>
+                <gridItem id="SCI_IIC_CFG_CH4_FILTER_CLOCK" selectedIndex="0"/>
+                <gridItem id="SCI_IIC_CFG_CH5_FILTER_CLOCK" selectedIndex="0"/>
+                <gridItem id="SCI_IIC_CFG_CH6_FILTER_CLOCK" selectedIndex="0"/>
+                <gridItem id="SCI_IIC_CFG_CH7_FILTER_CLOCK" selectedIndex="0"/>
+                <gridItem id="SCI_IIC_CFG_CH8_FILTER_CLOCK" selectedIndex="0"/>
+                <gridItem id="SCI_IIC_CFG_CH9_FILTER_CLOCK" selectedIndex="0"/>
+                <gridItem id="SCI_IIC_CFG_CH10_FILTER_CLOCK" selectedIndex="0"/>
+                <gridItem id="SCI_IIC_CFG_CH11_FILTER_CLOCK" selectedIndex="0"/>
+                <gridItem id="SCI_IIC_CFG_CH12_FILTER_CLOCK" selectedIndex="0"/>
+                <gridItem id="SCI_IIC_CFG_CH0_SSDA_DELAY_SELECT" selectedIndex="18"/>
+                <gridItem id="SCI_IIC_CFG_CH1_SSDA_DELAY_SELECT" selectedIndex="18"/>
+                <gridItem id="SCI_IIC_CFG_CH2_SSDA_DELAY_SELECT" selectedIndex="18"/>
+                <gridItem id="SCI_IIC_CFG_CH3_SSDA_DELAY_SELECT" selectedIndex="18"/>
+                <gridItem id="SCI_IIC_CFG_CH4_SSDA_DELAY_SELECT" selectedIndex="18"/>
+                <gridItem id="SCI_IIC_CFG_CH5_SSDA_DELAY_SELECT" selectedIndex="18"/>
+                <gridItem id="SCI_IIC_CFG_CH6_SSDA_DELAY_SELECT" selectedIndex="18"/>
+                <gridItem id="SCI_IIC_CFG_CH7_SSDA_DELAY_SELECT" selectedIndex="18"/>
+                <gridItem id="SCI_IIC_CFG_CH8_SSDA_DELAY_SELECT" selectedIndex="18"/>
+                <gridItem id="SCI_IIC_CFG_CH9_SSDA_DELAY_SELECT" selectedIndex="18"/>
+                <gridItem id="SCI_IIC_CFG_CH10_SSDA_DELAY_SELECT" selectedIndex="18"/>
+                <gridItem id="SCI_IIC_CFG_CH11_SSDA_DELAY_SELECT" selectedIndex="18"/>
+                <gridItem id="SCI_IIC_CFG_CH12_SSDA_DELAY_SELECT" selectedIndex="18"/>
+                <gridItem id="SCI_IIC_CFG_BUS_CHECK_COUNTER" selectedIndex="1000"/>
+                <gridItem id="SCI_IIC_CFG_PORT_SETTING_PROCESSING" selectedIndex="1"/>
             </component>
             <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
             <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
