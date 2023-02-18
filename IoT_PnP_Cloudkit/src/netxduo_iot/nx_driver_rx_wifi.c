@@ -1253,7 +1253,7 @@ int32_t socket_id;
 		nx_driver_sockets[i].remote_port = 0;
 
 #ifdef NX_DEBUG
-		printf("UDP socket %u bind to port: %u\r\n", i, local_port);
+		LOG_TERMINAL("UDP socket %u bind to port: %u\r\n", i, local_port);
 #endif
 
 		status = NX_SUCCESS;
@@ -1270,7 +1270,7 @@ int32_t socket_id;
 			status = R_WIFI_SX_ULPGN_CloseSocket(nx_driver_sockets[i].socket_id);
 
 #ifdef NX_DEBUG
-			printf("UDP socket %u unbind port: %u\r\n", i, local_port);
+			LOG_TERMINAL("UDP socket %u unbind port: %u\r\n", i, local_port);
 #endif
 		}
 

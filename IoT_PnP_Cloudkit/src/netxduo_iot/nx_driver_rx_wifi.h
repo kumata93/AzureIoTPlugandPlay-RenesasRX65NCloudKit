@@ -32,6 +32,7 @@ extern   "C" {
 
 #include <r_wifi_sx_ulpgn_if.h>
 #include "nx_api.h"
+#include "demo_printf.h"
 
 
 #define NX_DRIVER_STATE_NOT_INITIALIZED         1

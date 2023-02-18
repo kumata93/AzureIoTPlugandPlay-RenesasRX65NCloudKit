@@ -21,6 +21,7 @@
 #include "nx_azure_iot_ciphersuites.h"
 #include "sample_config.h"
 #include "sample_sensor.h"
+#include "demo_printf.h"
 
 /* Define sample wait option.  */
 #ifndef SAMPLE_WAIT_OPTION
@@ -168,13 +169,13 @@ UINT request_id;
     if (nx_azure_iot_hub_client_reported_properties_create(hub_client_ptr,
                                                            &packet_ptr, NX_WAIT_FOREVER))
     {
-        printf("Failed to build reported response\r\n");
+        LOG_TERMINAL("Failed to build reported response\r\n");
         return;
     }
 
     if (nx_azure_iot_json_writer_init(&json_writer, packet_ptr, NX_WAIT_FOREVER))
     {
-        printf("Failed to build reported response\r\n");
+        LOG_TERMINAL("Failed to build reported response\r\n");
         nx_packet_release(packet_ptr);
         return;
     }
@@ -191,7 +192,7 @@ UINT request_id;
         nx_azure_iot_hub_client_reported_properties_status_end(hub_client_ptr, &json_writer) ||
         nx_azure_iot_json_writer_append_end_object(&json_writer))
     {
-        printf("Failed to build reported response\r\n");
+        LOG_TERMINAL("Failed to build reported response\r\n");
         nx_packet_release(packet_ptr);
     }
     else
@@ -201,7 +202,7 @@ UINT request_id;
                                                              &response_status, NX_NULL,
                                                              (5 * NX_IP_PERIODIC_RATE)))
         {
-            printf("Failed to send reported response\r\n");
+            LOG_TERMINAL("Failed to send reported response\r\n");
             nx_packet_release(packet_ptr);
         }
     }
@@ -331,7 +332,7 @@ UCHAR time_buf[32];
                                                                    sizeof(fake_end_report_time) - 1) ||
         nx_azure_iot_json_writer_append_end_object(out_json_writer_ptr))
     {
-        printf("Failed to build getMaxMinReport response \r\n");
+        LOG_TERMINAL("Failed to build getMaxMinReport response \r\n");
         status = NX_NOT_SUCCESSFUL;
     }
     else
@@ -347,12 +348,12 @@ static VOID connection_status_callback(NX_AZURE_IOT_HUB_CLIENT *hub_client_ptr, 
     NX_PARAMETER_NOT_USED(hub_client_ptr);
     if (status)
     {
-        printf("Disconnected from IoTHub!: error code = 0x%08x\r\n", status);
+        LOG_TERMINAL("Disconnected from IoTHub!: error code = 0x%08x\r\n", status);
         tx_event_flags_set(&sample_events, SAMPLE_DISCONNECT_EVENT, TX_OR);
     }
     else
     {
-        printf("Connected to IoTHub.\r\n");
+        LOG_TERMINAL("Connected to IoTHub.\r\n");
         tx_event_flags_set(&sample_events, SAMPLE_CONNECTED_EVENT, TX_OR);
     }
 
@@ -402,12 +403,12 @@ UINT iothub_device_id_length = sizeof(DEVICE_ID) - 1;
     if ((status = sample_dps_entry(&prov_client, &iothub_hostname, &iothub_hostname_length,
                                    &iothub_device_id, &iothub_device_id_length)))
     {
-        printf("Failed on sample_dps_entry!: error code = 0x%08x\r\n", status);
+        LOG_TERMINAL("Failed on sample_dps_entry!: error code = 0x%08x\r\n", status);
         return(status);
     }
 #endif /* ENABLE_DPS_SAMPLE */
 
-    printf("IoTHub Host Name: %.*s; Device ID: %.*s.\r\n",
+    LOG_TERMINAL("IoTHub Host Name: %.*s; Device ID: %.*s.\r\n",
            iothub_hostname_length, iothub_hostname, iothub_device_id_length, iothub_device_id);
 
     /* Initialize IoTHub client.  */
@@ -423,7 +424,7 @@ UINT iothub_device_id_length = sizeof(DEVICE_ID) - 1;
                                                      sizeof(nx_azure_iot_tls_metadata_buffer),
                                                      &root_ca_cert)))
     {
-        printf("Failed on nx_azure_iot_hub_client_initialize!: error code = 0x%08x\r\n", status);
+        LOG_TERMINAL("Failed on nx_azure_iot_hub_client_initialize!: error code = 0x%08x\r\n", status);
         return(status);
     }
 
@@ -432,17 +433,17 @@ UINT iothub_device_id_length = sizeof(DEVICE_ID) - 1;
                                                        (const UCHAR *)SAMPLE_PNP_MODEL_ID,
                                                        sizeof(SAMPLE_PNP_MODEL_ID) - 1)))
     {
-        printf("Failed on nx_azure_iot_hub_client_model_id_set!: error code = 0x%08x\r\n", status);
+        LOG_TERMINAL("Failed on nx_azure_iot_hub_client_model_id_set!: error code = 0x%08x\r\n", status);
     }
     
     /* Add more CA certificates.  */
     else if ((status = nx_azure_iot_hub_client_trusted_cert_add(iothub_client_ptr, &root_ca_cert_2)))
     {
-        printf("Failed on nx_azure_iot_hub_client_trusted_cert_add!: error code = 0x%08x\r\n", status);
+        LOG_TERMINAL("Failed on nx_azure_iot_hub_client_trusted_cert_add!: error code = 0x%08x\r\n", status);
     }
     else if ((status = nx_azure_iot_hub_client_trusted_cert_add(iothub_client_ptr, &root_ca_cert_3)))
     {
-        printf("Failed on nx_azure_iot_hub_client_trusted_cert_add!: error code = 0x%08x\r\n", status);
+        LOG_TERMINAL("Failed on nx_azure_iot_hub_client_trusted_cert_add!: error code = 0x%08x\r\n", status);
     }
 
 #if (USE_DEVICE_CERTIFICATE == 1)
@@ -454,13 +455,13 @@ UINT iothub_device_id_length = sizeof(DEVICE_ID) - 1;
                                                              (UCHAR *)sample_device_private_key_ptr, (USHORT)sample_device_private_key_len,
                                                              DEVICE_KEY_TYPE)))
     {
-        printf("Failed on nx_secure_x509_certificate_initialize!: error code = 0x%08x\r\n", status);
+        LOG_TERMINAL("Failed on nx_secure_x509_certificate_initialize!: error code = 0x%08x\r\n", status);
     }
 
     /* Set device certificate.  */
     else if ((status = nx_azure_iot_hub_client_device_cert_set(iothub_client_ptr, &device_certificate)))
     {
-        printf("Failed on nx_azure_iot_hub_client_device_cert_set!: error code = 0x%08x\r\n", status);
+        LOG_TERMINAL("Failed on nx_azure_iot_hub_client_device_cert_set!: error code = 0x%08x\r\n", status);
     }
 #else
 
@@ -469,7 +470,7 @@ UINT iothub_device_id_length = sizeof(DEVICE_ID) - 1;
                                                                  (UCHAR *)DEVICE_SYMMETRIC_KEY,
                                                                  sizeof(DEVICE_SYMMETRIC_KEY) - 1)))
     {
-        printf("Failed on nx_azure_iot_hub_client_symmetric_key_set!\r\n");
+        LOG_TERMINAL("Failed on nx_azure_iot_hub_client_symmetric_key_set!\r\n");
     }
 #endif /* USE_DEVICE_CERTIFICATE */
 
@@ -478,46 +479,46 @@ UINT iothub_device_id_length = sizeof(DEVICE_ID) - 1;
     /* Enable MQTT over WebSocket to connect to IoT Hub  */
     else if ((status = nx_azure_iot_hub_client_websocket_enable(iothub_client_ptr)))
     {
-        printf("Failed on nx_azure_iot_hub_client_websocket_enable!\r\n");
+        LOG_TERMINAL("Failed on nx_azure_iot_hub_client_websocket_enable!\r\n");
     }
 #endif /* NXD_MQTT_OVER_WEBSOCKET */
 
     /* Enable command and properties features.  */
     else if ((status = nx_azure_iot_hub_client_command_enable(iothub_client_ptr)))
     {
-        printf("Failed on nx_azure_iot_hub_client_command_enable!: error code = 0x%08x\r\n", status);
+        LOG_TERMINAL("Failed on nx_azure_iot_hub_client_command_enable!: error code = 0x%08x\r\n", status);
     }
     else if ((status = nx_azure_iot_hub_client_properties_enable(iothub_client_ptr)))
     {
-        printf("Failed on nx_azure_iot_hub_client_properties_enable!: error code = 0x%08x\r\n", status);
+        LOG_TERMINAL("Failed on nx_azure_iot_hub_client_properties_enable!: error code = 0x%08x\r\n", status);
     }
 
     /* Set connection status callback.  */
     else if ((status = nx_azure_iot_hub_client_connection_status_callback_set(iothub_client_ptr,
                                                                               connection_status_callback)))
     {
-        printf("Failed on connection_status_callback!\r\n");
+        LOG_TERMINAL("Failed on connection_status_callback!\r\n");
     }
     else if ((status = nx_azure_iot_hub_client_receive_callback_set(iothub_client_ptr,
                                                                     NX_AZURE_IOT_HUB_COMMAND,
                                                                     message_receive_callback_command,
                                                                     NX_NULL)))
     {
-        printf("device command callback set!: error code = 0x%08x\r\n", status);
+        LOG_TERMINAL("device command callback set!: error code = 0x%08x\r\n", status);
     }
     else if ((status = nx_azure_iot_hub_client_receive_callback_set(iothub_client_ptr,
                                                                     NX_AZURE_IOT_HUB_PROPERTIES,
                                                                     message_receive_callback_properties,
                                                                     NX_NULL)))
     {
-        printf("device properties callback set!: error code = 0x%08x\r\n", status);
+        LOG_TERMINAL("device properties callback set!: error code = 0x%08x\r\n", status);
     }
     else if ((status = nx_azure_iot_hub_client_receive_callback_set(iothub_client_ptr,
                                                                     NX_AZURE_IOT_HUB_WRITABLE_PROPERTIES,
                                                                     message_receive_callback_writable_properties,
                                                                     NX_NULL)))
     {
-        printf("device writable properties callback set!: error code = 0x%08x\r\n", status);
+        LOG_TERMINAL("device writable properties callback set!: error code = 0x%08x\r\n", status);
     }
 
     if (status)
@@ -561,13 +562,13 @@ NX_AZURE_IOT_JSON_WRITER json_writer;
             return;
         }
 
-        printf("Received command: %.*s", (INT)command_name_length, (CHAR *)command_name_ptr);
-        printf("\r\n");
+        LOG_TERMINAL("Received command: %.*s", (INT)command_name_length, (CHAR *)command_name_ptr);
+        LOG_TERMINAL("\r\n");
 
         if ((status = nx_azure_iot_json_reader_init(&json_reader,
                                                     packet_ptr)))
         {
-            printf("Failed to initialize json reader \r\n");
+            LOG_TERMINAL("Failed to initialize json reader \r\n");
             nx_packet_release(packet_ptr);
             return;
         }
@@ -576,7 +577,7 @@ NX_AZURE_IOT_JSON_WRITER json_writer;
                                                                 scratch_buffer,
                                                                 sizeof(scratch_buffer))))
         {
-            printf("Failed to initialize json writer response \r\n");
+            LOG_TERMINAL("Failed to initialize json writer response \r\n");
             nx_packet_release(packet_ptr);
             return;
         }
@@ -602,7 +603,7 @@ NX_AZURE_IOT_JSON_WRITER json_writer;
                                                                        context_ptr, context_length, scratch_buffer,
                                                                        response_payload, NX_WAIT_FOREVER)))
         {
-            printf("Command response failed!: error code = 0x%08x\r\n", status);
+            LOG_TERMINAL("Command response failed!: error code = 0x%08x\r\n", status);
         }
     }
 }
@@ -623,16 +624,16 @@ ULONG properties_version;
                                                                       &packet_ptr,
                                                                       NX_WAIT_FOREVER)))
     {
-        printf("Receive writable property receive failed!: error code = 0x%08x\r\n", status);
+        LOG_TERMINAL("Receive writable property receive failed!: error code = 0x%08x\r\n", status);
         return;
     }
 
-    printf("Received writable property");
-    printf("\r\n");
+    LOG_TERMINAL("Received writable property");
+    LOG_TERMINAL("\r\n");
 
     if ((status = nx_azure_iot_json_reader_init(&json_reader, packet_ptr)))
     {
-        printf("Init json reader failed!: error code = 0x%08x\r\n", status);
+        LOG_TERMINAL("Init json reader failed!: error code = 0x%08x\r\n", status);
         nx_packet_release(packet_ptr);
         return;
     }
@@ -642,14 +643,14 @@ ULONG properties_version;
                                                                  NX_AZURE_IOT_HUB_WRITABLE_PROPERTIES,
                                                                  &properties_version)))
     {
-        printf("Properties version get failed!: error code = 0x%08x\r\n", status);
+        LOG_TERMINAL("Properties version get failed!: error code = 0x%08x\r\n", status);
         nx_packet_release(packet_ptr);
         return;
     }
 
     if ((status = nx_azure_iot_json_reader_init(&json_reader, packet_ptr)))
     {
-        printf("Init json reader failed!: error code = 0x%08x\r\n", status);
+        LOG_TERMINAL("Init json reader failed!: error code = 0x%08x\r\n", status);
         nx_packet_release(packet_ptr);
         return;
     }
@@ -658,7 +659,7 @@ ULONG properties_version;
                                                  NX_AZURE_IOT_HUB_WRITABLE_PROPERTIES, properties_version);
     if (status && (status != NX_AZURE_IOT_NOT_FOUND))
     {
-        printf("Failed to parse value\r\n");
+        LOG_TERMINAL("Failed to parse value\r\n");
     }
 
     nx_packet_release(packet_ptr);
@@ -687,13 +688,13 @@ ULONG reported_property_version;
     if ((status = nx_azure_iot_hub_client_reported_properties_create(hub_client_ptr,
                                                                      &packet_ptr, NX_WAIT_FOREVER)))
     {
-        printf("Failed create reported properties: error code = 0x%08x\r\n", status);
+        LOG_TERMINAL("Failed create reported properties: error code = 0x%08x\r\n", status);
         return;
     }
     
     if ((status = nx_azure_iot_json_writer_init(&json_writer, packet_ptr, NX_WAIT_FOREVER)))
     {
-        printf("Failed init json writer: error code = 0x%08x\r\n", status);
+        LOG_TERMINAL("Failed init json writer: error code = 0x%08x\r\n", status);
         nx_packet_release(packet_ptr);
         return;
     }
@@ -705,7 +706,7 @@ ULONG reported_property_version;
                                                                              device_max_temp, DOUBLE_DECIMAL_PLACE_DIGITS)) ||
         (status = nx_azure_iot_json_writer_append_end_object(&json_writer)))
     {
-        printf("Build reported property failed: error code = 0x%08x\r\n", status);
+        LOG_TERMINAL("Build reported property failed: error code = 0x%08x\r\n", status);
         nx_packet_release(packet_ptr);
         return;
     }
@@ -716,14 +717,14 @@ ULONG reported_property_version;
                                                                    &reported_property_version,
                                                                    (5 * NX_IP_PERIODIC_RATE))))
     {
-        printf("Reported properties failed!: error code = 0x%08x\r\n", status);
+        LOG_TERMINAL("Reported properties failed!: error code = 0x%08x\r\n", status);
         nx_packet_release(packet_ptr);
         return;
     }
 
     if ((response_status < 200) || (response_status >= 300))
     {
-        printf("Reported properties failed with code : %d\r\n", response_status);
+        LOG_TERMINAL("Reported properties failed with code : %d\r\n", response_status);
         return;
     }
 
@@ -746,16 +747,16 @@ ULONG writable_properties_version;
                                                              &packet_ptr,
                                                              NX_WAIT_FOREVER)))
     {
-        printf("Get all properties receive failed!: error code = 0x%08x\r\n", status);
+        LOG_TERMINAL("Get all properties receive failed!: error code = 0x%08x\r\n", status);
         return;
     }
 
-    printf("Received all properties");
-    printf("\r\n");
+    LOG_TERMINAL("Received all properties");
+    LOG_TERMINAL("\r\n");
 
     if ((status = nx_azure_iot_json_reader_init(&json_reader, packet_ptr)))
     {
-        printf("Init json reader failed!: error code = 0x%08x\r\n", status);
+        LOG_TERMINAL("Init json reader failed!: error code = 0x%08x\r\n", status);
         nx_packet_release(packet_ptr);
         return;
     }
@@ -764,14 +765,14 @@ ULONG writable_properties_version;
                                                                  NX_AZURE_IOT_HUB_PROPERTIES,
                                                                  &writable_properties_version)))
     {
-        printf("Properties version get failed!: error code = 0x%08x\r\n", status);
+        LOG_TERMINAL("Properties version get failed!: error code = 0x%08x\r\n", status);
         nx_packet_release(packet_ptr);
         return;
     }
 
     if ((status = nx_azure_iot_json_reader_init(&json_reader, packet_ptr)))
     {
-        printf("Init json reader failed!: error code = 0x%08x\r\n", status);
+        LOG_TERMINAL("Init json reader failed!: error code = 0x%08x\r\n", status);
         nx_packet_release(packet_ptr);
         return;
     }
@@ -780,7 +781,7 @@ ULONG writable_properties_version;
                                                  NX_AZURE_IOT_HUB_PROPERTIES, writable_properties_version);
     if (status && (status != NX_AZURE_IOT_NOT_FOUND))
     {
-        printf("Failed to parse value\r\n");
+        LOG_TERMINAL("Failed to parse value\r\n");
     }
 
     nx_packet_release(packet_ptr);
@@ -804,14 +805,14 @@ SAMPLE_SENSOR sample_sensor_data;
                                                                    &packet_ptr,
 																   SAMPLE_WAIT_OPTION)))
     {
-        printf("Telemetry message create failed!: error code = 0x%08x\r\n", status);
+        LOG_TERMINAL("Telemetry message create failed!: error code = 0x%08x\r\n", status);
         return;
     }
 
     /* Build telemetry JSON payload.  */
     if(nx_azure_iot_json_writer_with_buffer_init(&json_writer, scratch_buffer, sizeof(scratch_buffer)))
     {
-        printf("Telemetry message failed to build message\r\n");
+        LOG_TERMINAL("Telemetry message failed to build message\r\n");
         nx_azure_iot_hub_client_telemetry_message_delete(packet_ptr);
         return;
     }
@@ -873,7 +874,7 @@ SAMPLE_SENSOR sample_sensor_data;
 					DOUBLE_DECIMAL_PLACE_DIGITS) ||
          nx_azure_iot_json_writer_append_end_object(&json_writer))
     {
-        printf("Telemetry message failed to build message\r\n");
+        LOG_TERMINAL("Telemetry message failed to build message\r\n");
         nx_azure_iot_hub_client_telemetry_message_delete(packet_ptr);
         return;
     }
@@ -884,12 +885,12 @@ SAMPLE_SENSOR sample_sensor_data;
                                                          (UCHAR *)scratch_buffer, buffer_length,
                                                          SAMPLE_WAIT_OPTION)))
     {
-        printf("Telemetry message send failed!: error code = 0x%08x\r\n", status);
+        LOG_TERMINAL("Telemetry message send failed!: error code = 0x%08x\r\n", status);
         nx_azure_iot_hub_client_telemetry_message_delete(packet_ptr);
         return;
     }
 
-    printf("Telemetry message send: %.*s.\r\n", buffer_length, scratch_buffer);
+    LOG_TERMINAL("Telemetry message send: %.*s.\r\n", buffer_length, scratch_buffer);
 }
 
 #ifdef ENABLE_DPS_SAMPLE
@@ -899,7 +900,7 @@ static UINT sample_dps_entry(NX_AZURE_IOT_PROVISIONING_CLIENT *prov_client_ptr,
 {
 UINT status;
 
-    printf("Start Provisioning Client...\r\n");
+    LOG_TERMINAL("Start Provisioning Client...\r\n");
 
     /* Initialize IoT provisioning client.  */
     if ((status = nx_azure_iot_provisioning_client_initialize(prov_client_ptr, &nx_azure_iot,
@@ -914,7 +915,7 @@ UINT status;
                                                               sizeof(nx_azure_iot_tls_metadata_buffer),
                                                               &root_ca_cert)))
     {
-        printf("Failed on nx_azure_iot_provisioning_client_initialize!: error code = 0x%08x\r\n", status);
+        LOG_TERMINAL("Failed on nx_azure_iot_provisioning_client_initialize!: error code = 0x%08x\r\n", status);
         return(status);
     }
 
@@ -925,11 +926,11 @@ UINT status;
     /* Add more CA certificates.  */
     if ((status = nx_azure_iot_provisioning_client_trusted_cert_add(prov_client_ptr, &root_ca_cert_2)))
     {
-        printf("Failed on nx_azure_iot_provisioning_client_trusted_cert_add!: error code = 0x%08x\r\n", status);
+        LOG_TERMINAL("Failed on nx_azure_iot_provisioning_client_trusted_cert_add!: error code = 0x%08x\r\n", status);
     }
     else if ((status = nx_azure_iot_provisioning_client_trusted_cert_add(prov_client_ptr, &root_ca_cert_3)))
     {
-        printf("Failed on nx_azure_iot_provisioning_client_trusted_cert_add!: error code = 0x%08x\r\n", status);
+        LOG_TERMINAL("Failed on nx_azure_iot_provisioning_client_trusted_cert_add!: error code = 0x%08x\r\n", status);
     }
 
 #if (USE_DEVICE_CERTIFICATE == 1)
@@ -938,13 +939,13 @@ UINT status;
     else if ((status = nx_secure_x509_certificate_initialize(&device_certificate, (UCHAR *)sample_device_cert_ptr, (USHORT)sample_device_cert_len, NX_NULL, 0,
                                                              (UCHAR *)sample_device_private_key_ptr, (USHORT)sample_device_private_key_len, DEVICE_KEY_TYPE)))
     {
-        printf("Failed on nx_secure_x509_certificate_initialize!: error code = 0x%08x\r\n", status);
+        LOG_TERMINAL("Failed on nx_secure_x509_certificate_initialize!: error code = 0x%08x\r\n", status);
     }
 
     /* Set device certificate.  */
     else if ((status = nx_azure_iot_provisioning_client_device_cert_set(prov_client_ptr, &device_certificate)))
     {
-        printf("Failed on nx_azure_iot_provisioning_client_device_cert_set!: error code = 0x%08x\r\n", status);
+        LOG_TERMINAL("Failed on nx_azure_iot_provisioning_client_device_cert_set!: error code = 0x%08x\r\n", status);
     }
 #else
 
@@ -952,7 +953,7 @@ UINT status;
     else if ((status = nx_azure_iot_provisioning_client_symmetric_key_set(prov_client_ptr, (UCHAR *)DEVICE_SYMMETRIC_KEY,
                                                                           sizeof(DEVICE_SYMMETRIC_KEY) - 1)))
     {
-        printf("Failed on nx_azure_iot_hub_client_symmetric_key_set!: error code = 0x%08x\r\n", status);
+        LOG_TERMINAL("Failed on nx_azure_iot_hub_client_symmetric_key_set!: error code = 0x%08x\r\n", status);
     }
 #endif /* USE_DEVICE_CERTIFICATE */
 
@@ -961,19 +962,19 @@ UINT status;
     /* Enable MQTT over WebSocket.  */
     else if ((status = nx_azure_iot_provisioning_client_websocket_enable(prov_client_ptr)))
     {
-        printf("Failed on nx_azure_iot_provisioning_client_websocket_enable!\r\n");
+        LOG_TERMINAL("Failed on nx_azure_iot_provisioning_client_websocket_enable!\r\n");
     }
 #endif /* NXD_MQTT_OVER_WEBSOCKET */
 
     else if ((status = nx_azure_iot_provisioning_client_registration_payload_set(prov_client_ptr, (UCHAR *)SAMPLE_PNP_DPS_PAYLOAD,
                                                                                  sizeof(SAMPLE_PNP_DPS_PAYLOAD) - 1)))
     {
-        printf("Failed on nx_azure_iot_provisioning_client_registration_payload_set!: error code = 0x%08x\r\n", status);
+        LOG_TERMINAL("Failed on nx_azure_iot_provisioning_client_registration_payload_set!: error code = 0x%08x\r\n", status);
     }
     /* Register device.  */
     else if ((status = nx_azure_iot_provisioning_client_register(prov_client_ptr, NX_WAIT_FOREVER)))
     {
-        printf("Failed on nx_azure_iot_provisioning_client_register!: error code = 0x%08x\r\n", status);
+        LOG_TERMINAL("Failed on nx_azure_iot_provisioning_client_register!: error code = 0x%08x\r\n", status);
     }
 
     /* Get Device info.  */
@@ -981,13 +982,13 @@ UINT status;
                                                                                sample_iothub_hostname, iothub_hostname_length,
                                                                                sample_iothub_device_id, iothub_device_id_length)))
     {
-        printf("Failed on nx_azure_iot_provisioning_client_iothub_device_info_get!: error code = 0x%08x\r\n", status);
+        LOG_TERMINAL("Failed on nx_azure_iot_provisioning_client_iothub_device_info_get!: error code = 0x%08x\r\n", status);
     }
     else
     {
         *iothub_hostname = sample_iothub_hostname;
         *iothub_device_id = sample_iothub_device_id;
-        printf("Registered Device Successfully.\r\n");
+        LOG_TERMINAL("Registered Device Successfully.\r\n");
     }
 
     /* Destroy Provisioning Client.  */
@@ -1009,11 +1010,11 @@ UINT status;
     /* Request all properties.  */
     if ((status = nx_azure_iot_hub_client_properties_request(hub_client_ptr, NX_WAIT_FOREVER)))
     {
-        printf("Properties request failed!: error code = 0x%08x\r\n", status);
+        LOG_TERMINAL("Properties request failed!: error code = 0x%08x\r\n", status);
     }
     else
     {
-        printf("Sent properties request.\r\n");
+        LOG_TERMINAL("Sent properties request.\r\n");
     }
 }
 
@@ -1042,7 +1043,7 @@ static void log_callback(az_log_classification classification, UCHAR *msg, UINT 
 {
     if (classification == AZ_LOG_IOT_AZURERTOS)
     {
-        printf("%.*s", msg_len, (CHAR *)msg);
+        LOG_TERMINAL("%.*s", msg_len, (CHAR *)msg);
     }
 }
 
@@ -1059,7 +1060,7 @@ ULONG app_events;
                                       nx_azure_iot_thread_stack, sizeof(nx_azure_iot_thread_stack),
                                       NX_AZURE_IOT_THREAD_PRIORITY, unix_time_callback)))
     {
-        printf("Failed on nx_azure_iot_create!: error code = 0x%08x\r\n", status);
+        LOG_TERMINAL("Failed on nx_azure_iot_create!: error code = 0x%08x\r\n", status);
         return;
     }
 
@@ -1068,7 +1069,7 @@ ULONG app_events;
                                                         (USHORT)_nx_azure_iot_root_cert_size,
                                                         NX_NULL, 0, NULL, 0, NX_SECURE_X509_KEY_TYPE_NONE)))
     {
-        printf("Failed to initialize ROOT CA certificate!: error code = 0x%08x\r\n", status);
+        LOG_TERMINAL("Failed to initialize ROOT CA certificate!: error code = 0x%08x\r\n", status);
         nx_azure_iot_delete(&nx_azure_iot);
         return;
     }
@@ -1077,7 +1078,7 @@ ULONG app_events;
                                                         (USHORT)_nx_azure_iot_root_cert_size_2,
                                                         NX_NULL, 0, NULL, 0, NX_SECURE_X509_KEY_TYPE_NONE)))
     {
-        printf("Failed to initialize ROOT CA certificate!: error code = 0x%08x\r\n", status);
+        LOG_TERMINAL("Failed to initialize ROOT CA certificate!: error code = 0x%08x\r\n", status);
         nx_azure_iot_delete(&nx_azure_iot);
         return;
     }
@@ -1086,7 +1087,7 @@ ULONG app_events;
                                                         (USHORT)_nx_azure_iot_root_cert_size_3,
                                                         NX_NULL, 0, NULL, 0, NX_SECURE_X509_KEY_TYPE_NONE)))
     {
-        printf("Failed to initialize ROOT CA certificate!: error code = 0x%08x\r\n", status);
+        LOG_TERMINAL("Failed to initialize ROOT CA certificate!: error code = 0x%08x\r\n", status);
         nx_azure_iot_delete(&nx_azure_iot);
         return;
     }

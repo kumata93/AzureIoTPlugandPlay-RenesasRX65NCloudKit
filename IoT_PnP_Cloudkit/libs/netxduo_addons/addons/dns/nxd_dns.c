@@ -2392,7 +2392,7 @@ UINT        record_count = 0;
 /*                                            resulting in version 6.1    */
 /*                                                                        */
 /**************************************************************************/
-#if 0
+#if 1
 UINT  _nxde_dns_host_by_name_get(NX_DNS *dns_ptr, UCHAR *host_name, NXD_ADDRESS *host_address_ptr, 
                                  ULONG wait_option, UINT lookup_type)
 {
