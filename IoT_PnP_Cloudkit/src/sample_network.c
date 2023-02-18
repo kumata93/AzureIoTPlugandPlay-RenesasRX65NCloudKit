@@ -1,19 +1,12 @@
 #include "nx_api.h"
+#include "sample_network.h"
 #include "demo_printf.h"
 #include "nx_driver_rx_wifi.h"
 
-wifi_ip_configuration_t ip_cfg = {0};
-
-/* Define the Wi-Fi network parameters. Only WPA2 security is supported.  */
-#ifndef WIFI_SSID
-#define WIFI_SSID                     ""
-#endif /* WIFI_SSID  */
-
-#ifndef WIFI_PASSWORD
-#define WIFI_PASSWORD                 ""
-#endif /* WIFI_PASSWORD  */
+static wifi_ip_configuration_t ip_cfg = {0};
 
 static UINT wifi_connect();
+
 VOID sample_network_configure(NX_IP *ip_ptr, ULONG *dns_server_address)
 {
 ULONG   ip_address = 0;
